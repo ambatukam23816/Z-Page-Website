@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub - Shop Smart</title>
+    <title>Your Store Name</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
@@ -12,269 +12,112 @@
         .product-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15); }
     </style>
 </head>
-<body class="bg-zinc-50 text-zinc-900">
+<body class="bg-zinc-50">
 
-    <!-- HEADER -->
     <header class="bg-white border-b sticky top-0 z-50 shadow">
-        <div class="max-w-7xl mx-auto px-6 py-5">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-600 rounded-3xl flex items-center justify-center text-white font-bold text-3xl shadow">M</div>
-                    <h1 class="text-3xl font-bold tracking-tighter">MarketHub</h1>
-                </div>
-                <div class="flex items-center gap-6">
-                    <div class="relative w-80">
-                        <input type="text" id="searchInput" placeholder="Search products..." class="w-full pl-12 pr-4 py-3.5 bg-zinc-100 focus:bg-white border border-transparent focus:border-violet-300 rounded-3xl text-sm">
-                        <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-zinc-400"></i>
-                    </div>
-                    <button onclick="checkAdminAccess()" class="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-6 py-3 rounded-3xl hover:brightness-110">
-                        <i class="fa-solid fa-cog"></i> Admin
-                    </button>
-                </div>
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 bg-violet-600 rounded-3xl flex items-center justify-center text-white text-3xl font-bold">M</div>
+                <h1 class="text-3xl font-bold">YourStoreName</h1>
             </div>
+            <button onclick="checkAdminAccess()" class="bg-violet-600 text-white px-6 py-3 rounded-3xl">Admin</button>
         </div>
     </header>
 
-    <!-- HERO -->
-    <section class="bg-gradient-to-br from-zinc-900 to-slate-900 text-white py-20 text-center">
-        <h2 class="text-5xl font-bold mb-4">Premium Picks.<br>Instant Buy Now.</h2>
-    </section>
-
-    <!-- PRODUCTS -->
     <section class="max-w-7xl mx-auto px-6 py-12">
-        <h2 class="text-4xl font-bold mb-10">My Products</h2>
+        <h2 class="text-4xl font-bold mb-10 text-center">My Products</h2>
         <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
     </section>
 
     <!-- ADMIN PANEL -->
-    <div id="adminPanel" class="hidden fixed inset-0 bg-black/80 z-[4000] flex items-center justify-center">
-        <div class="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
-            <div class="p-6 border-b flex justify-between bg-zinc-50">
-                <h2 class="text-2xl font-bold">Admin Settings</h2>
-                <button onclick="toggleAdmin()" class="text-3xl">×</button>
+    <div id="adminPanel" class="hidden fixed inset-0 bg-black/80 z-50 flex items-center justify-center">
+        <div class="bg-white rounded-3xl w-full max-w-xl m-4">
+            <div class="p-6 border-b">
+                <h2 class="text-2xl font-bold">Add New Product</h2>
             </div>
-            <div class="p-6 overflow-auto max-h-[75vh]">
-                <form id="productForm" class="space-y-5">
-                    <input type="text" id="formName" class="w-full p-4 border rounded-2xl" placeholder="Product Name" required>
+            <div class="p-6">
+                <form id="productForm" class="space-y-4">
+                    <input type="text" id="formName" placeholder="Product Name" class="w-full p-4 border rounded-2xl" required>
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="text" id="formCategory" class="w-full p-4 border rounded-2xl" placeholder="Category" required>
-                        <input type="text" id="formPrice" class="w-full p-4 border rounded-2xl" placeholder="$129" required>
+                        <input type="text" id="formCategory" placeholder="Category" class="w-full p-4 border rounded-2xl" required>
+                        <input type="text" id="formPrice" placeholder="$99" class="w-full p-4 border rounded-2xl" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Product Image</label>
-                        <input type="file" id="formImageUpload" accept="image/*" class="w-full p-3 border border-dashed rounded-2xl">
-                        <div id="imagePreview" class="mt-4 hidden rounded-2xl overflow-hidden border">
-                            <img id="previewImg" class="w-full h-52 object-cover">
-                        </div>
-                    </div>
-                    <textarea id="formDescription" class="w-full p-4 border rounded-2xl h-28" placeholder="Description" required></textarea>
-                    <input type="text" id="formLink" class="w-full p-4 border rounded-2xl" placeholder="Affiliate Link" required>
-                    <button type="submit" class="w-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white py-4 rounded-3xl font-semibold">Save Product</button>
+                    <input type="file" id="formImageUpload" accept="image/*" class="w-full p-3 border border-dashed rounded-2xl">
+                    <div id="imagePreview" class="hidden mt-3"><img id="previewImg" class="h-48 w-full object-cover rounded-2xl"></div>
+                    <textarea id="formDescription" placeholder="Description" class="w-full p-4 border rounded-2xl h-24" required></textarea>
+                    <input type="text" id="formLink" placeholder="Affiliate Link" class="w-full p-4 border rounded-2xl" required>
+                    <button type="submit" class="w-full bg-violet-600 text-white py-4 rounded-3xl font-semibold">Save Product</button>
                 </form>
-
-                <h3 class="font-bold mt-10 mb-4">All Products</h3>
-                <div id="adminProductsList" class="space-y-4"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PRODUCT MODAL -->
-    <div id="productModal" class="hidden fixed inset-0 bg-black/70 z-[2000] flex items-center justify-center">
-        <div class="bg-white rounded-3xl max-w-lg w-full mx-4 overflow-hidden">
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 text-4xl text-white">×</button>
-            <img id="modalImage" class="w-full h-80 object-cover">
-            <div class="p-8">
-                <span id="modalCategory" class="uppercase text-violet-600 font-bold text-sm"></span>
-                <h3 id="modalTitle" class="text-3xl font-bold mt-2"></h3>
-                <p id="modalDescription" class="mt-5 text-zinc-600"></p>
-                <a id="modalBuyBtn" href="#" target="_blank" class="block mt-8 text-center py-5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-semibold rounded-3xl text-xl">Buy Now →</a>
             </div>
         </div>
     </div>
 
     <script>
-        // ================== MAIN PRODUCTS (Visible to ALL visitors) ==================
+        // ====================== YOUR PRODUCTS GO HERE ======================
         let products = [
-            // Add your products here manually (example below)
+            {
+                id: 1,
+                name: "Example Product 1",
+                category: "tech",
+                price: "$299",
+                image: "https://picsum.photos/id/1015/600/600",
+                description: "This is a great product. Replace with your real one.",
+                link: "https://your-affiliate-link.com/product1"
+            }
+            // Add more products like this ↓
             // {
-            //     id: 1,
-            //     name: "Your Product Name",
-            //     category: "tech",
-            //     price: "$199",
-            //     image: "https://your-image-link.com/image.jpg",
-            //     description: "Short description here",
-            //     link: "https://your-affiliate-link.com"
+            //     id: 2,
+            //     name: "Another Product",
+            //     category: "fashion",
+            //     price: "$89",
+            //     image: "https://picsum.photos/id/201/600/600",
+            //     description: "Nice description here",
+            //     link: "https://your-affiliate-link.com/product2"
             // }
         ];
 
-        let editingId = null;
-        let currentImageBase64 = null;
         const ADMIN_PASSWORD = "admin123";
 
-        function saveProducts() {
-            localStorage.setItem('marketProducts', JSON.stringify(products));
-        }
-
-        // Load saved products from localStorage (for you only)
-        const savedProducts = JSON.parse(localStorage.getItem('marketProducts'));
-        if (savedProducts && savedProducts.length > 0) {
-            products = savedProducts;
-        }
-
-        // Image Upload
-        document.getElementById('formImageUpload').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                currentImageBase64 = ev.target.result;
-                document.getElementById('previewImg').src = currentImageBase64;
-                document.getElementById('imagePreview').classList.remove('hidden');
-            };
-            reader.readAsDataURL(file);
-        });
-
-        function renderProducts(filtered = products) {
+        // Render Products
+        function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            grid.innerHTML = filtered.length === 0 
-                ? `<p class="col-span-full text-center py-20 text-zinc-400 text-xl">No products yet.<br>Add some in Admin panel.</p>` 
-                : '';
+            grid.innerHTML = "";
 
-            filtered.forEach(p => {
+            if (products.length === 0) {
+                grid.innerHTML = `<p class="text-center py-20 text-gray-500">No products added yet.</p>`;
+                return;
+            }
+
+            products.forEach(product => {
                 const card = document.createElement('div');
                 card.className = "product-card bg-white rounded-3xl overflow-hidden border cursor-pointer";
                 card.innerHTML = `
-                    <img src="${p.image}" class="w-full h-64 object-cover">
+                    <img src="${product.image}" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <p class="text-xs font-bold text-violet-600">${p.category.toUpperCase()}</p>
-                        <h3 class="font-semibold text-xl mt-3 mb-2">${p.name}</h3>
-                        <p class="text-zinc-500 text-sm mb-6 line-clamp-3">${p.description}</p>
+                        <p class="text-xs font-bold text-violet-600">${product.category.toUpperCase()}</p>
+                        <h3 class="font-semibold text-xl mt-2">${product.name}</h3>
+                        <p class="text-gray-600 text-sm mt-2 mb-4">${product.description}</p>
                         <div class="flex justify-between items-center">
-                            <span class="text-3xl font-bold">${p.price}</span>
-                            <button onclick="event.stopImmediatePropagation(); window.open('${p.link}', '_blank')" 
-                                    class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white px-8 py-3 rounded-3xl font-semibold">
-                                Buy Now
-                            </button>
+                            <span class="text-3xl font-bold">${product.price}</span>
+                            <a href="${product.link}" target="_blank" 
+                               class="bg-violet-600 text-white px-6 py-3 rounded-3xl font-medium">Buy Now</a>
                         </div>
                     </div>
                 `;
-                card.onclick = () => viewProduct(p.id);
+                card.onclick = () => alert("Opening product details..."); // You can improve this later
                 grid.appendChild(card);
             });
         }
 
-        // Rest of the functions (viewProduct, admin, etc.) are the same as before...
-        function viewProduct(id) {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
-            document.getElementById('modalImage').src = p.image;
-            document.getElementById('modalTitle').textContent = p.name;
-            document.getElementById('modalCategory').textContent = p.category;
-            document.getElementById('modalDescription').textContent = p.description;
-            document.getElementById('modalBuyBtn').href = p.link;
-            document.getElementById('productModal').classList.remove('hidden');
-            document.getElementById('productModal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('productModal').classList.add('hidden');
-            document.getElementById('productModal').classList.remove('flex');
-        }
-
+        // Simple Admin (for now)
         function checkAdminAccess() {
             const pass = prompt("Enter Admin Password:");
-            if (pass === ADMIN_PASSWORD) toggleAdmin();
-            else if (pass) alert("Incorrect password!");
-        }
-
-        function toggleAdmin() {
-            document.getElementById('adminPanel').classList.toggle('hidden');
-            if (!document.getElementById('adminPanel').classList.contains('hidden')) renderAdminList();
-        }
-
-        function renderAdminList() {
-            const container = document.getElementById('adminProductsList');
-            container.innerHTML = '';
-            products.forEach(product => {
-                const div = document.createElement('div');
-                div.className = "flex gap-4 bg-zinc-50 p-4 rounded-2xl items-center";
-                div.innerHTML = `
-                    <img src="${product.image}" class="w-20 h-20 object-cover rounded-2xl">
-                    <div class="flex-1">
-                        <strong>${product.name}</strong><br>
-                        <small>${product.price} • ${product.category}</small>
-                    </div>
-                    <div class="flex gap-3">
-                        <button onclick="editProduct(${product.id})" class="px-5 py-2 bg-white border rounded-2xl">Edit</button>
-                        <button onclick="deleteProduct(${product.id})" class="px-5 py-2 bg-red-100 text-red-600 rounded-2xl">Delete</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function editProduct(id) {
-            const p = products.find(x => x.id === id);
-            editingId = id;
-            document.getElementById('formName').value = p.name;
-            document.getElementById('formCategory').value = p.category;
-            document.getElementById('formPrice').value = p.price;
-            document.getElementById('formDescription').value = p.description;
-            document.getElementById('formLink').value = p.link;
-            currentImageBase64 = p.image;
-            document.getElementById('previewImg').src = p.image;
-            document.getElementById('imagePreview').classList.remove('hidden');
-            toggleAdmin();
-        }
-
-        function deleteProduct(id) {
-            if (confirm("Delete this product?")) {
-                products = products.filter(p => p.id !== id);
-                saveProducts();
-                renderProducts();
-                renderAdminList();
+            if (pass === ADMIN_PASSWORD) {
+                alert("Admin mode is limited in this version.\n\nTo add products, edit the code directly.");
             }
         }
 
-        document.getElementById('productForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!currentImageBase64) return alert("Please upload an image");
-
-            const newProduct = {
-                id: editingId || Date.now(),
-                name: document.getElementById('formName').value,
-                category: document.getElementById('formCategory').value.toLowerCase(),
-                price: document.getElementById('formPrice').value,
-                image: currentImageBase64,
-                description: document.getElementById('formDescription').value,
-                link: document.getElementById('formLink').value
-            };
-
-            if (editingId) {
-                products = products.map(p => p.id === editingId ? newProduct : p);
-                editingId = null;
-            } else {
-                products.push(newProduct);
-            }
-
-            saveProducts();
-            renderProducts();
-            this.reset();
-            document.getElementById('imagePreview').classList.add('hidden');
-            currentImageBase64 = null;
-            toggleAdmin();
-            alert("✅ Product saved!");
-        });
-
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => 
-                p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)
-            );
-            renderProducts(filtered);
-        });
-
-        window.onload = () => renderProducts();
+        window.onload = renderProducts;
     </script>
 </body>
 </html>
